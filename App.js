@@ -16,7 +16,7 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 enableScreens();
 const Stack = createNativeStackNavigator();
 
-const App: () => React$Node = () => {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -25,23 +25,51 @@ const App: () => React$Node = () => {
         }}
       >
         <Stack.Screen
-          name="Home"
+          name="Screen1"
           component={({ navigation }) => (
-            <View>
+            <View style={{ flex: 1, justifyContent: "center" }}>
+              <Text style={{ paddingBottom: 24, textAlign: "center" }}>
+                Screen 1
+              </Text>
               <Button
-                title="Navigate"
-                onPress={() => navigation.navigate("Notifications")}
+                title="PUSH TO SCREEN 2"
+                onPress={() => navigation.push("Screen2")}
               />
             </View>
           )}
         />
         <Stack.Screen
-          name="Notifications"
-          component={() => null}
-          options={{
-            headerCenter: () => <Text fontSize={28}>Hello!</Text>,
-            headerRight: () => <Text fontSize={28}>Some other text</Text>,
-          }}
+          name="Screen2"
+          component={({ navigation }) => (
+            <View style={{ flex: 1, justifyContent: "center" }}>
+              <Text style={{ paddingBottom: 24, textAlign: "center" }}>
+                Screen 2
+              </Text>
+              <Button
+                title="PUSH TO SCREEN 3"
+                onPress={() => navigation.push("Screen3")}
+              />
+            </View>
+          )}
+        />
+        <Stack.Screen
+          name="Screen3"
+          component={({ navigation }) => (
+            <View style={{ flex: 1, justifyContent: "center" }}>
+              <Text style={{ paddingBottom: 24, textAlign: "center" }}>
+                Screen 3
+              </Text>
+              <Button
+                title="RESET TO SCREEN 1 WITH INDEX OF 0"
+                onPress={() =>
+                  navigation.reset({
+                    routes: [{ name: "Screen1" }],
+                    index: 0,
+                  })
+                }
+              />
+            </View>
+          )}
         />
       </Stack.Navigator>
     </NavigationContainer>
